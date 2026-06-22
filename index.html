@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Menu - Expresso Café</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blanco: #ffffff;
+            --cafe-reposo: #f5f0ed; 
+            --cafe-seleccionado: #8b6f5e; 
+            --texto-oscuro: #333333;
+            --texto-claro: #ffffff;
+            --cafe-fuerte: #5d4037;
+            --cafe-bajito: #d7ccc8; 
+            --cafe-header: #6b4423; 
+            --dorado: #b08d57;
+            --fondo-crema: #fdfbf9;
+            --naranja-amazon: #e47911;
+        }
+
+        /* OCULTAR BARRA DE SCROLL VERTICAL DE LA PÁGINA */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: scroll !important;
+            -webkit-overflow-scrolling: touch !important;
+            background-color: var(--fondo-crema);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--texto-oscuro);
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+        
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* --- DISEÑO PREMIUM HEADER --- */
+        .premium-header {
+            background-color: var(--cafe-header);
+            color: var(--texto-claro);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            z-index: 5;
+        }
+        .nav-links { display: flex; gap: 15px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--cafe-bajito); font-weight: bold; }
+        .nav-icons { display: flex; gap: 15px; color: var(--cafe-bajito); }
+        .nav-icons .material-icons-outlined { font-size: 22px; cursor: pointer; }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            position: relative;
+            min-height: 240px;
+        }
+
+        .hero-text-side { z-index: 3; }
+        .hero-badge { font-size: 9px; color: var(--cafe-bajito); font-weight: bold; margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-main-title { font-size: 26px; font-weight: 900; margin: 0; line-height: 1.1; letter-spacing: -0.5px; color: var(--blanco); }
+        .hero-desc { font-size: 10px; line-height: 1.4; opacity: 0.8; margin: 15px 0; max-width: 170px; }
+        .hero-price-tag { font-size: 16px; font-weight: bold; color: var(--cafe-bajito); margin-bottom: 15px; }
+
+        .btn-add-hero {
+            background: var(--blanco);
+            color: var(--cafe-header);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero-img-side {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .organic-shape-bg {
+            position: absolute;
+            right: -20px;
+            top: 0;
+            width: 110px;
+            height: 100%;
+            background-color: rgba(215, 204, 200, 0.15);
+            border-radius: 40px 0 0 40px;
+            z-index: 1;
+        }
+
+        .main-drink-img {
+            width: 145px;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
+            z-index: 3;
+            position: relative;
+        }
+
+        .vertical-text {
+            position: absolute;
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            transform-origin: center right;
+            font-size: 36px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 2px;
+            z-index: 2;
+            white-space: nowrap;
+        }
+
+        .coffee-bean { position: absolute; font-size: 12px; color: var(--cafe-bajito); opacity: 0.5; z-index: 4; }
+        .bean1 { top: 15%; left: -10%; transform: rotate(45deg); }
+        .bean2 { bottom: 15%; right: 10%; transform: rotate(-20deg); }
+
+        .ribbon-sep {
+            background: var(--cafe-fuerte);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            text-align: center;
+            padding: 8px;
+            letter-spacing: 3px;
+            transform: rotate(-1.5deg) scale(1.05);
+            margin: 15px -10px 6px -10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* listón decorativo justo debajo del ribbon principal */
+        .ribbon-liston {
+            background: linear-gradient(90deg, rgba(176,141,87,1) 0%, rgba(107,68,35,0.95) 100%);
+            height: 10px;
+            margin: 0 0 18px 0;
+            border-radius: 6px;
+            width: calc(100% - 20px);
+            margin-left: 10px;
+            margin-right: 10px;
+            transform: rotate(-1.2deg);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        .info-local {
+            margin: 15px auto;
+            max-width: 320px;
+            background: #fcfaf8;
+            border: 1px dashed #5d4037;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .info-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: #5d4037;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: #8d7765;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .btn-mapa {
+            display: inline-block;
+            background: #5d4037;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-mapa:hover { opacity: .85; }
+
+        /* Botón 'Menú completo' solicitado */
+        .btn-menu-completo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--cafe-header);
+            color: var(--texto-claro);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            margin: 0 auto 12px auto;
+        }
+        .btn-menu-completo .material-icons-outlined { font-size: 18px; color: var(--texto-claro); }
+
+        .premium-popular-title {
+            text-align: center;
+            margin: 30px auto 5px auto;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--cafe-fuerte);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            width: fit-content;
+        }
+        
+        .premium-popular-title::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--cafe-seleccionado);
+            margin: 6px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* NAVEGACIÓN SUPERIOR SECCIONES */
+        .nav-filter-minimal {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 10px;
+            background-color: var(--blanco);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .btn-nav {
+            flex: 1;
+            max-width: 100px;
+            background-color: #ffffff;
+            color: var(--cafe-fuerte);
+            border: 1px solid var(--cafe-fuerte);
+            text-align: center;
+            padding: 10px 5px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav.active-seccion {
+            background-color: var(--cafe-fuerte) !important;
+            color: #ffffff !important;
+        }
+
+        /* --- ESTILOS COMPATIBLES: SECCIÓN VISOR / INTERACTIVA --- */
+        .visor-container {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 12px;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+            background-color: #fcfcfc;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .recomienda {
+            background: #fff;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            gap: 12px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            box-sizing: border-box;
+        }
+
+        .recomienda img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .recomienda-info span { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .recomienda-info h3 { font-size: 13px; color: #444; margin: 0; }
+
+        .visor {
+            position: relative;
+            height: 300px;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        #img-principal {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-producto {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .info-producto h1 { font-size: 22px; margin: 0 0 2px 0; }
+        .info-producto p { font-size: 16px; font-weight: bold; color: #f3e5ab; margin: 0; }
+
+        .btn-ordenar {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #d7ccc8; 
+            color: #5d4037; 
+            text-decoration: none;
+            text-align: center;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: 0.2s;
+            box-sizing: border-box;
+        }
+
+        .btn-ordenar:active { background: #bcaaa4; transform: scale(0.98); }
+
+        .menu-inferior {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 5px;
+        }
+        .menu-inferior::-webkit-scrollbar { display: none; }
+
+        .item {
+            flex: 0 0 75px;
+            height: 75px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+
+        .item.active { border-color: #d7ccc8; opacity: 1; transform: translateY(-2px); }
+        .item img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* --- NUEVOS ESTILOS: SECCIÓN SUCURSALES (TIPO IMAGEN) --- */
+        .branches-section {
+            display: flex;
+            background-color: var(--cafe-fuerte);
+            margin: 30px 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .branches-side-title {
+            background-color: var(--blanco);
+            width: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .branches-side-title h2 {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--cafe-fuerte);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .branches-grid {
+            flex: 1;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .branch-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .branch-map-thumb {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .branch-info {
+            padding: 10px 15px;
+            flex: 1;
+        }
+
+        .branch-info h3 {
+            margin: 0 0 4px 0;
+            font-size: 13px;
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .branch-info p {
+            margin: 0;
+            font-size: 10px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.3;
+        }
+
+        /* -------------------------------------------------- */
+
+        .main-scroll-container {
+            padding-bottom: 140px; 
+            width: 100%;
+            box-sizing: border-box;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .main-scroll-container::-webkit-scrollbar {
+            display: none !important;
+        }
+
+        /* NAVEGACIÓN SUB-CATEGORÍAS DESLIZABLE */
+        .nav-wrapper {
+            position: sticky;
+            top: 60px;
+            background: var(--blanco);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 0;
+            overflow-x: auto;
+            display: flex;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-wrapper::-webkit-scrollbar { display: none !important; }
+        .nav-content { display: flex; padding: 0 20px; }
+
+        .tab-btn {
+            background: var(--cafe-reposo);
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            color: var(--texto-oscuro);
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--cafe-seleccionado);
+            color: var(--texto-claro);
+        }
+
+        /* CAROUSEL FLUIDO SIN BARRAS VISIBLES */
+        .grid-container {
+            display: flex;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 0px; 
+            padding: 30px 40px; 
+            align-items: center;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .grid-container::-webkit-scrollbar { 
+            display: none !important; 
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        .pantalla-principal { display: none; }
+        .pantalla-principal.activa { display: block; }
+
+        /* TARJETAS */
+        .card { 
+            flex: 0 0 80vw; 
+            max-width: 290px;
+            background: #f4ede8;
+            border-radius: 28px;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            position: relative;
+            box-sizing: border-box;
+            
+            transform: scale(0.85);
+            opacity: 0.35;
+            margin-left: -20px;
+            margin-right: -20px;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.3s ease, 
+                        background-color 0.3s ease;
+        }
+
+        .card.active-card {
+            transform: scale(1.02);
+            opacity: 1;
+            background: var(--cafe-fuerte);
+            color: var(--texto-claro);
+            box-shadow: 0 15px 35px rgba(93, 64, 55, 0.3);
+            z-index: 5;
+        }
+
+        .img-container {
+            width: 170px; 
+            height: 170px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .card.active-card .img-container {
+            transform: scale(1.08); 
+        }
+        .img-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.15));
+        }
+
+        .details { width: 100%; }
+        .details h3 { margin: 0 0 6px 0; font-size: 16px; font-weight: 700; text-transform: lowercase; }
+        
+        .card .details p.precio { margin: 0 0 12px 0; font-size: 16px; font-weight: bold; color: var(--cafe-seleccionado); }
+        .card.active-card .details p.precio { color: var(--dorado); }
+
+        .dynamic-content {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+        .card.active-card .dynamic-content {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* SELECTORES DESPLEGABLES */
+        .selector-block {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        .selector-block label {
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 2px;
+        }
+        .selector-dropdown {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 12px;
+            padding: 4px 0;
+            color: inherit;
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .selector-dropdown option {
+            background-color: var(--blanco);
+            color: var(--texto-oscuro);
+        }
+
+        /* BOTONES DE ACCIÓN */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .btn-buy { 
+            display: block; width: 100%; padding: 11px; font-size: 11px; text-transform: lowercase;
+            border-radius: 50px; cursor: pointer; border: none; font-weight: bold;
+            background: var(--blanco); color: var(--cafe-fuerte);
+            box-sizing: border-box;
+        }
+
+        .btn-quick {
+            background: #e47911;
+            color: var(--blanco);
+        }
+
+        /* MODALES */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: white; padding: 25px; border-radius: 20px; width: 85%; max-width: 320px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--texto-oscuro);
+        }
+        .option-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 13px; }
+        .section-title { font-weight: 800; font-size: 11px; color: #8b6f5e; margin: 15px 0 10px; text-transform: uppercase; border-bottom: 1px solid #eee; }
+        
+        /* CHECKOUT */
+        .checkout-box { padding: 20px; background: #fcfaf8; border-top: 2px solid #d7ccc8; margin-top: 20px; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 8px 0; border-bottom: 1px solid #eee; }
+        .total-row { display: flex; justify-content: space-between; margin: 15px 0; font-size: 18px; font-weight: 700; }
+        .btn-wa { background: var(--cafe-fuerte); color: #ffffff; border: none; padding: 14px; width: 100%; font-weight: 700; font-size: 11px; border-radius: 8px; text-transform: uppercase; cursor: pointer; margin-bottom: 8px;}
+        .btn-wa.btn-secondary { background: #8b6f5e; }
+
+        /* ELIMINAR DEL CARRITO */
+        .btn-delete-item {
+            background: none;
+            border: none;
+            color: var(--cafe-fuerte);
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        .btn-delete-item .material-icons-outlined {
+            font-size: 22px;
+        }
+
+        /* BARRA INFERIOR */
+        .amazon-nav {
+            position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; height: 65px;
+            background-color: var(--cafe-fuerte) !important; display: flex; justify-content: space-around; align-items: center; z-index: 2147483647 !important; 
+        }
+        .nav-item { display: flex; align-items: center; justify-content: center; color: var(--blanco) !important; text-decoration: none; width: 33.33%; height: 100%; position: relative; }
+        .nav-item .material-icons-outlined { font-size: 28px; color: var(--blanco) !important; }
+        .cart-badge { position: absolute; top: 12px; left: 55%; background-color: #e47911; color: #ffffff; font-size: 11px; font-weight: 700; border-radius: 12px; padding: 1px 5px; min-width: 18px; text-align: center; display: none; }
+        .hidden { display: none !important; }
+    
+    /* CALIFICACIONES */
+    .review-section{
+        margin:30px 15px;
+        background:#f5f2ef;
+        border-radius:30px;
+        padding:25px;
+        text-align:center;
+    }
+    .review-section h2{font-size:22px;font-weight:800;color:#1d1d1d;margin-bottom:10px;}
+    .review-section p{color:#8d7765;margin-bottom:20px;font-size:14px;}
+    .stars{display:flex;justify-content:center;gap:10px;margin-bottom:20px;}
+    .stars span{font-size:40px;cursor:pointer;color:#d7ccc8;transition:.2s;}
+    .stars span.active{color:#b08d57;}
+    .review-section textarea{
+        width:100%;min-height:100px;border:1px solid #d7ccc8;border-radius:20px;
+        padding:15px;resize:none;font-family:inherit;margin-bottom:20px;background:#fff;
+    }
+    .review-btn{
+        width:100%;border:none;border-radius:50px;padding:16px;
+        background:linear-gradient(90deg,#3b2216,#5d4037);
+        color:white;font-weight:800;font-size:14px;cursor:pointer;letter-spacing:1px;
+    }
+    
+    </style>
+</head>
+<body>
+
+    <header class="premium-header">
+        <div class="top-nav">
+            <div class="nav-links">
+                <span>Inicio</span>
+                <span>Menú</span>
+            </div>
+            <div class="nav-icons">
+                <span class="material-icons-outlined">person</span>
+                <span class="material-icons-outlined" onclick="document.getElementById('seccion-pedido').scrollIntoView({behavior: 'smooth'})">shopping_cart</span>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-text-side">
+                <span class="hero-badge">Cada taza cuenta una historia.</span>
+                <h1 class="hero-main-title">¿CUÁL ES<br>TU ANTOJO?</h1>
+                <p class="hero-desc">Disfruta del equilibrio perfecto entre granos tostados y dulzura cremosa en nuestra receta insignia.</p>
+                <div class="hero-price-tag">RECOMENDADO • $85</div>
+                <button class="btn-add-hero" onclick="agregarRapido('FRAP EXCLUSIVO', 85)">Añadir ya</button>
+            </div>
+            
+            <div class="hero-img-side">
+                <div class="organic-shape-bg"></div>
+                <div class="vertical-text">FRAPUCCINO</div>
+                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" alt="Bebida" class="main-drink-img">
+                <span class="coffee-bean bean1">●</span>
+                <span class="coffee-bean bean2">●</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="ribbon-sep">
+        EXPRESSO CAFÉ • SUCURSAL CENTRO • EXPRESSO CAFÉ
+    </div>
+
+    <!-- listón decorativo extra solicitado -->
+    <div class="ribbon-liston" aria-hidden="true"></div>
+
+    <!-- Botón Menú Completo colocado arriba de la info-local -->
+    <div style="display:flex; justify-content:center;">
+        <button class="btn-menu-completo" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+            MENÚ COMPLETO <span class="material-icons-outlined">arrow_forward</span>
+        </button>
+    </div>
+
+    <div class="info-local">
+        <span class="info-title">⚠️ Solo para recoger</span>
+        <p class="info-text">
+            No contamos con servicio a domicilio.<br>
+            <strong>Tu pedido se entrega en el local.</strong>
+        </p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Expresso+Cafe+Jesus+Maria+Jalisco" target="_blank" class="btn-mapa">📍 Ver sucursal más cercana</a>
+    </div>
+
+    <div class="premium-popular-title">Menú Popular</div>
+
+    <div class="nav-filter-minimal">
+        <button class="btn-nav" id="btn-main-calientes" onclick="cambiarSeccionPrincipal('calientes')">Calientes</button>
+        <button class="btn-nav active-seccion" id="btn-main-frios" onclick="cambiarSeccionPrincipal('frios')">Fríos</button>
+        <button class="btn-nav" id="btn-main-comida" onclick="cambiarSeccionPrincipal('comida')">Postres</button>
+        <button class="btn-nav" id="btn-main-exclusivo" onclick="cambiarSeccionPrincipal('exclusivo')">Suc. Centro</button>
+    </div>
+
+    <div class="main-scroll-container" id="mainContainer">
+        
+        <div id="pantalla-calientes" class="pantalla-principal">
+            <nav class="nav-wrapper">
+                <div class="nav-content">
+                    <button class="tab-btn active" onclick="filterItemsCalientes('termos', this)">termos</button>
+                    <button class="tab-btn" onclick="filterItemsCalientes('cafes', this)">cafés</button>
+                </div>
+            </nav>
+            <div id="shop-grid-calientes" class="grid-container"></div>
+        </div>
+        
+        <div id="pantalla-frios" class="pantalla-principal activa">
+            <nav class="nav-wrapper">
+                <div class="nav-content">
+                    <button class="tab-btn active" onclick="filterItemsFrios('frappes', this)">frappés</button>
+                    <button class="tab-btn" onclick="filterItemsFrios('latte-frios', this)">latte fríos</button>
+                    <button class="tab-btn" onclick="filterItemsFrios('smoothie', this)">smoothie</button>
+                    <button class="tab-btn" onclick="filterItemsFrios('soda-italiana', this)">soda italiana</button>
+                    <button class="tab-btn" onclick="filterItemsFrios('leche', this)">leche</button>
+                    <button class="tab-btn" onclick="filterItemsFrios('otros', this)">otros</button>
+                </div>
+            </nav>
+            <div id="shop-grid-frios" class="grid-container"></div>
+        </div>
+
+        <div id="pantalla-comida" class="pantalla-principal">
+            <nav class="nav-wrapper">
+                <div class="nav-content">
+                    <button class="tab-btn active" onclick="filterItemsComida('rebanadas', this)">rebanadas</button>
+                </div>
+            </nav>
+            <div id="grid-comida" class="grid-container"></div>
+        </div>
+
+        <div id="pantalla-exclusivo" class="pantalla-principal">
+            <nav class="nav-wrapper">
+                <div class="nav-content">
+                    <button class="tab-btn active" onclick="filterItemsExclusivo('exclusivos', this)">Menú Exclusivo Sucursal Centro</button>
+                </div>
+            </nav>
+            <div id="grid-exclusivo" class="grid-container"></div>
+        </div>
+
+        <div id="toppingModal" class="modal-overlay">
+            <div class="modal-content">
+                <div id="modal-title" style="font-weight:700; color:#5d4037; margin-bottom:15px; text-transform: uppercase; font-size: 12px;">Personalizar</div>
+                
+                <div id="basic-toppings-group" class="hidden">
+                    <div class="section-title">Toppings Básicos</div>
+                    <div class="option-item"><label>Crema Batida</label><input type="checkbox" class="top-check" data-price="0" value="Crema Batida"></div>
+                    <div class="option-item"><label>Chispas</label><input type="checkbox" class="top-check" data-price="0" value="Chispas"></div>
+                    <div class="option-item"><label>Canela</label><input type="checkbox" class="top-check" data-price="0" value="Canela"></div>
+                </div>
+                <div id="latte-basic-group" class="hidden">
+                    <div class="section-title">Toppings Básicos</div>
+                    <div class="option-item"><label>Canela</label><input type="checkbox" class="top-check" data-price="0" value="Canela"></div>
+                </div>
+                <div id="frappe-specials" class="hidden">
+                    <div class="section-title">Toppings Especiales</div>
+                    <div class="option-item"><label>Jarabe de Caramelo (+$10)</label><input type="checkbox" class="top-check" data-price="10" value="Jarabe Caramelo"></div>
+                    <div class="option-item"><label>Jarabe de Chocolate (+$10)</label><input type="checkbox" class="top-check" data-price="10" value="Jarabe Chocolate"></div>
+                </div>
+                <div id="latte-specials" class="hidden">
+                    <div class="section-title">Toppings Especiales</div>
+                    <div class="option-item"><label>Crema Batida (+$15)</label><input type="checkbox" class="top-check" data-price="15" value="Crema Batida"></div>
+                    <div class="option-item"><label>Jarabe de Caramelo (+$10)</label><input type="checkbox" class="top-check" data-price="10" value="Jarabe Caramelo"></div>
+                    <div class="option-item"><label>Jarabe de Chocolate (+$10)</label><input type="checkbox" class="top-check" data-price="10" value="Jarabe Chocolate"></div>
+                </div>
+                <div id="soda-specials" class="hidden">
+                    <div class="section-title">Toppings Especiales</div>
+                    <div class="option-item"><label>Perlas Explosivas Mora Azul (+$11)</label><input type="checkbox" class="top-check" data-price="11" value="Perlas Explosivas Mora Azul"></div>
+                </div>
+
+                <button class="btn-wa" style="margin-top:20px;" onclick="addCustom()">Confirmar Selección</button>
+                <div style="text-align:center; margin-top:15px;"><span style="font-size:11px; cursor:pointer; color:#888; text-decoration: underline;" onclick="closeToppings()">Cancelar</span></div>
+            </div>
+        </div>
+
+        <div id="seccion-pedido" class="checkout-box">
+            <h2 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Tu Pedido</h2>
+            <div id="cart-items"></div>
+            <div class="total-row"><span>Total</span><span id="cart-sum">$0</span></div>
+            <button class="btn-wa" onclick="sendOrder('SUCURSAL_CENTRO')">Pedir a Sucursal Centro</button>
+            <button class="btn-wa btn-secondary" onclick="sendOrder('SUCURSAL_MERCADO')">Pedir a Sucursal Mercado</button>
+            <center><button onclick="clearCart()" style="background:none; border:none; color:#8d7765; font-size:9px; margin-top:10px; cursor:pointer; text-decoration: underline;">Vaciar Todo el Carrito</button></center>
+        </div>
+
+        <div class="visor-container">
+            <div class="recomienda">
+                <img id="img-recomienda" src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=200">
+                <div class="recomienda-info">
+                    <span>Pruébalo con:</span>
+                    <h3 id="txt-recomienda">Cheesecake de Fresa</h3>
+                </div>
+            </div>
+
+            <div class="visor">
+                <img id="img-principal" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800">
+                <div class="info-producto">
+                    <h1 id="nom-producto">Frappé Oreo</h1>
+                    <p id="precio-producto">$65.00</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/523481311222?text=Hola,%20me%20gustar%C3%ADa%20ordenar:%20Frapp%C3%A9%20Oreo%20y%20la%20sugerencia%20de%20Cheesecake%20de%20Fresa" id="link-wa" target="_blank" class="btn-ordenar">ORDENAR AHORA</a>
+
+            <div class="menu-inferior">
+                <div class="item active" onclick="cambiarVisor('Frappé Oreo', '$65.00', 'Cheesecake de Fresa', 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800', 'https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=200', this)">
+                    <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=200">
+                </div>
+                <div class="item" onclick="cambiarVisor('Capuccino Latte', '$45.00', 'Croissant Paris', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800', 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200', this)">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200">
+                </div>
+                <div class="item" onclick="cambiarVisor('Iced Matcha', '$55.00', 'Galleta Artesanal', 'https://images.unsplash.com/photo-1515824918246-a8a556f3c63f?w=800', 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=200', this)">
+                    <img src="https://images.unsplash.com/photo-1515824918246-a8a556f3c63f?w=200">
+                </div>
+                <div class="item" onclick="cambiarVisor('Cold Brew', '$50.00', 'Muffin Arándano', 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800', 'https://images.unsplash.com/photo-1558401391-7899b4bd5bbf?w=200', this)">
+                    <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=200">
+                </div>
+            </div>
+        </div>
+
+        <div class="branches-section">
+            <div class="branches-side-title">
+                <h2>Sucursales</h2>
+            </div>
+            <div class="branches-grid">
+                <div class="branch-card">
+                    <img class="branch-map-thumb" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=200" alt="Mapa Centro">
+                    <div class="branch-info">
+                        <h3>Sucursal Centro</h3>
+                        <p>Calle Principal #100, Colonia Centro, San Miguel el Alto</p>
+                    </div>
+                </div>
+                <div class="branch-card">
+                    <img class="branch-map-thumb" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=200" alt="Mapa Mercado">
+                    <div class="branch-info">
+                        <h3>Sucursal Mercado</h3>
+                        <p>Portal del Mercado #45, Zona Comercial, San Miguel el Alto</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="review-section">
+        <h2>¿QUÉ TAL TU EXPERIENCIA?</h2>
+        <p>Tu opinión nos ayuda a mejorar nuestro servicio.</p>
+
+        <div class="stars">
+            <span onclick="setRating(1)">☆</span>
+            <span onclick="setRating(2)">☆</span>
+            <span onclick="setRating(3)">☆</span>
+            <span onclick="setRating(4)">☆</span>
+            <span onclick="setRating(5)">☆</span>
+        </div>
+
+        <textarea id="reviewText" placeholder="Escribe un comentario u opinión (opcional)..."></textarea>
+
+        <button class="review-btn" onclick="enviarCalificacion()">
+            ENVIAR CALIFICACIÓN
+        </button>
+    </div>
+    
+
+    </div>
+
+    <div class="amazon-nav">
+        <a href="#" class="nav-item"><span class="material-icons-outlined">home</span></a>
+        <a href="#seccion-pedido" class="nav-item" onclick="document.getElementById('seccion-pedido').scrollIntoView({behavior: 'smooth'}); return false;"><span class="material-icons-outlined">shopping_cart</span><span class="cart-badge" id="amazon-cart-count">0</span></a>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'SHOP_STORAGE_KEY_V21';
+        const TEL_CENTRO = "523481311222"; 
+        const TEL_MERCADO = "521000000000"; 
+        let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let currentItem = { name: '', price: 0, category: '', size: 'Chico', milk: 'Entera' };
+
+        const DEFAULT_IMG = "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400";
+
+        const frappesMenu = [
+            {n: "FRAP EXPRESSO ICE", p: 70}, {n: "FRAP BAILEYS", p: 91}, {n: "FRAP KALHUA", p: 73}, 
+            {n: "FRAP KANELI", p: 63}, {n: "FRAP MOKA", p: 68}, {n: "FRAP CARAMELO", p: 65}, 
+            {n: "FRAP MACHA", p: 58}, {n: "FRAP NUTELLA", p: 68}, {n: "FRAP OREO", p: 68}
+        ];
+        const lattesMenu = [
+            {n: "LATTE MOKA", p: 63}, {n: "LATTE CARAMELO", p: 58}, {n: "LATTE MACHA", p: 58}
+        ];
+        const smoothiesMenu = [
+            {n: "SMOOTHIE MORA AZUL", p: 61}, {n: "SMOOTHIE FRESA", p: 61}
+        ];
+        const sodaItalianaMenu = [
+            {n: "SODA ITA MORA AZUL", p: 53}, {n: "SODA ITA FRESA", p: 53}
+        ];
+        const lecheMenu = [
+            {n: "Lala entera 1L", p: 30}, {n: "Vaso de leche", p: 25}
+        ];
+        const otrosMenu = [
+            {n: "Peñafiel Mineral 355ml", p: 16}, {n: "Bonafon 600ML", p: 12}
+        ];
+        const termosMenu = [
+            {n: "EXPRESSO TERMO", p: 21}, {n: "AMERICANO TERMO", p: 26}
+        ];
+        const cafesMenu = [
+            {n: "AMERICANO", p: 32}, {n: "AMERICANO FRIO", p: 35}, {n: "EXPRESSO", p: 23}
+        ];
+        const rebanadasMenu = [
+            {n: "REBANADA PASTEL", p: 45}
+        ];
+        const exclusivoMenu = [
+            {n: "FRAP MAGNUM", p: 85}, {n: "LATTE TARRO SPECIAL", p: 75}
+        ];
+
+        function cambiarVisor(nombre, precio, recom, fotoP, fotoR, el) {
+            document.getElementById('nom-producto').innerText = nombre;
+            document.getElementById('precio-producto').innerText = precio;
+            document.getElementById('txt-recomienda').innerText = recom;
+            document.getElementById('img-principal').src = fotoP;
+            document.getElementById('img-recomienda').src = fotoR;
+            
+            document.getElementById('link-wa').href = `https://wa.me/${TEL_CENTRO}?text=Hola, me gustaría ordenar: ${nombre} y la sugerencia de ${recom}`;
+
+            document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function cambiarSeccionPrincipal(seccion) {
+            document.querySelectorAll('.pantalla-principal').forEach(p => p.classList.remove('activa'));
+            document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active-seccion'));
+            
+            if(seccion === 'calientes') {
+                document.getElementById('pantalla-calientes').classList.add('activa');
+                document.getElementById('btn-main-calientes').classList.add('active-seccion');
+                filterItemsCalientes('termos', document.querySelector('#pantalla-calientes .tab-btn'));
+            } else if(seccion === 'frios') {
+                document.getElementById('pantalla-frios').classList.add('activa');
+                document.getElementById('btn-main-frios').classList.add('active-seccion');
+                filterItemsFrios('frappes', document.querySelector('#pantalla-frios .tab-btn'));
+            } else if(seccion === 'comida') {
+                document.getElementById('pantalla-comida').classList.add('activa');
+                document.getElementById('btn-main-comida').classList.add('active-seccion');
+                filterItemsComida('rebanadas', document.querySelector('#pantalla-comida .tab-btn'));
+            } else if(seccion === 'exclusivo') {
+                document.getElementById('pantalla-exclusivo').classList.add('activa');
+                document.getElementById('btn-main-exclusivo').classList.add('active-seccion');
+                filterItemsExclusivo('exclusivos', document.querySelector('#pantalla-exclusivo .tab-btn'));
+            }
+        }
+
+        function filterItemsFrios(cat, btn) {
+            activarBotonYSustentarScroll(btn);
+            if(cat === 'frappes') renderGrid('shop-grid-frios', frappesMenu, 'frappes');
+            if(cat === 'latte-frios') renderGrid('shop-grid-frios', lattesMenu, 'lattes');
+            if(cat === 'smoothie') renderGrid('shop-grid-frios', smoothiesMenu, 'smoothies');
+            if(cat === 'soda-italiana') renderGrid('shop-grid-frios', sodaItalianaMenu, 'sodas');
+            if(cat === 'leche') renderGrid('shop-grid-frios', lecheMenu, 'regular');
+            if(cat === 'otros') renderGrid('shop-grid-frios', otrosMenu, 'regular');
+        }
+
+        function filterItemsCalientes(cat, btn) {
+            activarBotonYSustentarScroll(btn);
+            if(cat === 'termos') renderGrid('shop-grid-calientes', termosMenu, 'regular');
+            if(cat === 'cafes') renderGrid('shop-grid-calientes', cafesMenu, 'cafes');
+        }
+
+        function filterItemsComida(cat, btn) {
+            activarBotonYSustentarScroll(btn);
+            renderGrid('grid-comida', rebanadasMenu, 'regular');
+        }
+
+        function filterItemsExclusivo(cat, btn) {
+            activarBotonYSustentarScroll(btn);
+            renderGrid('grid-exclusivo', exclusivoMenu, 'frappes');
+        }
+
+        function activarBotonYSustentarScroll(btn) {
+            if(btn) {
+                btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+        }
+
+        function setupAccordionScroll(containerId) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+
+            const updateActiveCard = () => {
+                const cards = container.querySelectorAll('.card');
+                if(cards.length === 0) return;
+
+                let closestCard = null;
+                let closestDistance = Infinity;
+                
+                const containerRect = container.getBoundingClientRect();
+                const containerCenter = containerRect.left + (containerRect.width / 2);
+
+                cards.forEach(card => {
+                    const cardRect = card.getBoundingClientRect();
+                    const cardCenter = cardRect.left + (cardRect.width / 2);
+                    const distance = Math.abs(containerCenter - cardCenter);
+
+                    if(distance < closestDistance) {
+                        closestDistance = distance;
+                        closestCard = card;
+                    }
+                });
+
+                cards.forEach(card => {
+                    if(card === closestCard) {
+                        card.classList.add('active-card');
+                    } else {
+                        card.classList.remove('active-card');
+                    }
+                });
+            };
+
+            container.addEventListener('scroll', updateActiveCard);
+            setTimeout(updateActiveCard, 50);
+        }
+
+        function renderGrid(containerId, items, categoria) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = "";
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "card";
+                
+                let selectoresHTML = '';
+                
+                if (categoria === 'frappes' || categoria === 'lattes' || categoria === 'cafes') {
+                    selectoresHTML = `
+                        <div class="selector-block">
+                            <label>Tamaño</label>
+                            <select class="selector-dropdown" id="size-${categoria}-${index}">
+                                <option value="Chico">Chico</option>
+                                <option value="Grande">Grande (+$10)</option>
+                            </select>
+                        </div>
+                        <div class="selector-block">
+                            <label>Leche</label>
+                            <select class="selector-dropdown" id="milk-${categoria}-${index}">
+                                <option value="Leche Entera">Leche Entera</option>
+                                <option value="Leche Light">Leche Light</option>
+                                <option value="Leche Deslactosada">Leche Deslactosada</option>
+                            </select>
+                        </div>
+                    `;
+                } else if (categoria === 'sodas' || categoria === 'smoothies') {
+                    selectoresHTML = `
+                        <div class="selector-block">
+                            <label>Tamaño</label>
+                            <select class="selector-dropdown" id="size-${categoria}-${index}">
+                                <option value="Chico">Chico</option>
+                                <option value="Grande">Grande (+$10)</option>
+                            </select>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="img-container">
+                        <img src="${DEFAULT_IMG}" alt="${item.n}">
+                    </div>
+                    <div class="details">
+                        <h3>${item.n}</h3>
+                        <p class="precio">$${item.p}</p>
+                        <div class="dynamic-content">
+                            ${selectoresHTML}
+                            <div class="action-buttons">
+                                <button class="btn-buy btn-quick" onclick="agregarRapido('${item.n}', ${item.p})">
+                                    + añadir rápido
+                                </button>
+                                <button class="btn-buy" onclick="procesarSeleccion('${item.n}', ${item.p}, '${categoria}', '${categoria}-${index}')">
+                                    Personalizar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            setupAccordionScroll(containerId);
+        }
+
+        function agregarRapido(name, price) {
+            cart.push({
+                name: name,
+                totalPrice: price,
+                details: 'Chico | Entera (Rápido)',
+                toppings: []
+            });
+            saveCart();
+            actualizarInterfaz();
+            alert(`¡${name} agregado al carrito!`);
+        }
+
+        function procesarSeleccion(name, price, category, idUnico) {
+            let size = "Chico";
+            let milk = "N/A";
+
+            const sizeElem = document.getElementById(`size-${idUnico}`);
+            const milkElem = document.getElementById(`milk-${idUnico}`);
+
+            if(sizeElem) size = sizeElem.value;
+            if(milkElem) milk = milkElem.value;
+
+            currentItem = { name, price, category, size, milk };
+
+            if (category === 'regular') {
+                cart.push({
+                    name: currentItem.name,
+                    totalPrice: currentItem.price,
+                    details: 'Estándar',
+                    toppings: []
+                });
+                saveCart();
+                actualizarInterfaz();
+            } else {
+                abrirOpcionesModal();
+            }
+        }
+
+        function abrirOpcionesModal() {
+            let detalleOpcion = currentItem.size;
+            if(currentItem.milk !== 'N/A') detalleOpcion += ` | ${currentItem.milk}`;
+            
+            document.getElementById('modal-title').innerText = `${currentItem.name} (${detalleOpcion})`;
+            
+            document.getElementById('basic-toppings-group').classList.add('hidden');
+            document.getElementById('latte-basic-group').classList.add('hidden');
+            document.getElementById('frappe-specials').classList.add('hidden');
+            document.getElementById('latte-specials').classList.add('hidden');
+            document.getElementById('soda-specials').classList.add('hidden');
+
+            document.querySelectorAll('.top-check').forEach(c => c.checked = false);
+
+            if(currentItem.category === 'frappes') {
+                document.getElementById('basic-toppings-group').classList.remove('hidden');
+                document.getElementById('frappe-specials').classList.remove('hidden');
+            } else if(currentItem.category === 'lattes') {
+                document.getElementById('latte-basic-group').classList.remove('hidden');
+                document.getElementById('latte-specials').classList.remove('hidden');
+            } else if(currentItem.category === 'sodas') {
+                document.getElementById('soda-specials').classList.remove('hidden');
+            }
+
+            document.getElementById('toppingModal').style.display = 'flex';
+        }
+
+        function closeToppings() {
+            document.getElementById('toppingModal').style.display = 'none';
+        }
+
+        function addCustom() {
+            let extraPrice = 0;
+            let toppingsSeleccionados = [];
+            
+            if(currentItem.size === 'Grande') {
+                extraPrice += 10;
+            }
+            
+            document.querySelectorAll('.top-check:checked').forEach(checkbox => {
+                if(!checkbox.closest('.hidden')) {
+                    extraPrice += parseFloat(checkbox.getAttribute('data-price'));
+                    toppingsSeleccionados.push(checkbox.value);
+                }
+            });
+
+            let modificaciones = `Tam: ${currentItem.size}`;
+            if(currentItem.milk !== 'N/A') modificaciones += ` | ${currentItem.milk}`;
+
+            const finalItem = {
+                name: currentItem.name,
+                totalPrice: currentItem.price + extraPrice,
+                details: modificaciones,
+                toppings: toppingsSeleccionados
+            };
+
+            cart.push(finalItem);
+            saveCart();
+            closeToppings();
+            actualizarInterfaz();
+        }
+
+        function saveCart() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+        }
+
+        function eliminarItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+            actualizarInterfaz();
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+            actualizarInterfaz();
+        }
+
+        function actualizarInterfaz() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = "";
+            let sum = 0;
+
+            cart.forEach((item, index) => {
+                sum += item.totalPrice;
+                const row = document.createElement('div');
+                row.className = "item-row";
+                row.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong> <br>
+                        <small style="color:#666;">${item.details}</small>
+                        <span style="color:var(--dorado); font-size:10px;">${item.toppings.length ? '<br>Toppings: '+item.toppings.join(', ') : ''}</span>
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <span>$${item.totalPrice}</span>
+                        <button onclick="eliminarItem(${index})" class="btn-delete-item">
+                            <span class="material-icons-outlined">delete</span>
+                        </button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+
+            document.getElementById('cart-sum').innerText = `$${sum}`;
+            const badge = document.getElementById('amazon-cart-count');
+            if(cart.length > 0) {
+                badge.innerText = cart.length;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function sendOrder(sucursal) {
+            if(cart.length === 0) return alert("Tu carrito está vacío.");
+            let tel = sucursal === 'SUCURSAL_CENTRO' ? TEL_CENTRO : TEL_MERCADO;
+            let texto = `*Nuevo Pedido - ${sucursal.replace('_',' ')}*\n\n`;
+            
+            cart.forEach(item => {
+                texto += `- 1x ${item.name} ($${item.totalPrice})\n`;
+                texto += `  Opciones: ${item.details}\n`;
+                if(item.toppings.length) texto += `  Toppings: ${item.toppings.join(', ')}\n`;
+                texto += `-----------------------\n`;
+            });
+            texto += `\n*Total a Pagar: ${document.getElementById('cart-sum').innerText}*`;
+            
+            window.open(`https://wa.me/${tel}?text=${encodeURIComponent(texto)}`, '_blank');
+        }
+
+        window.onload = () => {
+            filterItemsFrios('frappes', document.querySelector('#pantalla-frios .tab-btn'));
+            actualizarInterfaz();
+        };
+    
+    let ratingSeleccionado = 0;
+    function setRating(valor){
+        ratingSeleccionado = valor;
+        document.querySelectorAll('.stars span').forEach((s,i)=>{
+            if(i < valor){s.classList.add('active'); s.innerHTML='★';}
+            else{s.classList.remove('active'); s.innerHTML='☆';}
+        });
+    }
+    function enviarCalificacion(){
+        const comentario=document.getElementById('reviewText').value;
+        if(ratingSeleccionado===0){alert('Selecciona una calificación.');return;}
+        alert('Gracias por tu opinión');
+        document.getElementById('reviewText').value='';
+        setRating(0);
+    }
+    
+</script>
+</body>
+</html>
